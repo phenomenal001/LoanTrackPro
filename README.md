@@ -18,5 +18,5 @@ LoanTrackPro is a web application for managing loan accounts, designed with role
 
 1. Clone the repository:
    ```bash
-   git clone <repository_url>
-   cd LoanManager
+   git clone https://github.com/phenomenal001/LoanTrackPro.git
+   cd LoanTrackPro
