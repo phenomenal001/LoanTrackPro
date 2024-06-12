@@ -1,0 +1,47 @@
+<!-- templates/supervisor.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervisor Dashboard</title>
+</head>
+<body>
+    <h1>Supervisor Dashboard</h1>
+    <h2>Assigned Loan Accounts</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Loan Account Number</th>
+                <th>Subordinate Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in assigned %}
+            <tr>
+                <td>{{ loan.account_number }}</td>
+                <td>{{ loan.assigned_to }}</td>
+                <td>{{ loan.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Unassigned Loan Accounts</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Loan Account Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in unassigned %}
+            <tr>
+                <td>{{ loan.account_number }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

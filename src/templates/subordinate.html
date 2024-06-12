@@ -1,0 +1,36 @@
+<!-- templates/subordinate.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subordinate Dashboard</title>
+</head>
+<body>
+    <h1>Subordinate Dashboard</h1>
+    <h2>Assigned Loan Accounts</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Loan Account Number</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in assigned %}
+            <tr>
+                <td>{{ loan.account_number }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('mark_complete', loan_id=loan.id) }}">
+                        <input type="hidden" name="latitude" value="YOUR_LATITUDE">
+                        <input type="hidden" name="longitude" value="YOUR_LONGITUDE">
+                        <button type="submit">Mark as Completed</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

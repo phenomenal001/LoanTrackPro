@@ -1,0 +1,17 @@
+click
+colorama
+Flask
+Flask-SQLAlchemy
+greenlet
+importlib-metadata
+itsdangerous
+Jinja2
+MarkupSafe
+pyodbc
+python-dotenv
+SQLAlchemy
+typing_extensions
+waitress
+Werkzeug
+zipp
+pytz
