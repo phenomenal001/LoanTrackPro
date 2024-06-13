@@ -65,9 +65,12 @@ def login():
 @login_required
 def dashboard():
     if current_user.role == 'supervisor':
+        
         assigned = LoanAccount.query.join(User).add_columns(LoanAccount.account_number, User.username, LoanAccount.status).filter(LoanAccount.assigned_to.isnot(None)).filter(LoanAccount.assigned_to ==  User.id).all()
         unassigned = LoanAccount.query.filter_by(assigned_to=None).all()
-        return render_template('supervisor.html', assigned=assigned, unassigned=unassigned)
+        users_to_assign = User.query.filter_by(role="subordinate").all()
+
+        return render_template('supervisor.html', assigned=assigned, unassigned=unassigned, users_to_assign=users_to_assign)
     elif current_user.role == 'subordinate':
         assigned = LoanAccount.query.filter_by(assigned_to=current_user.id).all()
         return render_template('subordinate.html', assigned=assigned)
@@ -105,6 +108,22 @@ def mark_complete(loan_id):
         flash('You are not within the geo limits.', 'error')
     
     return redirect(url_for('dashboard'))
+
+
+@app.route('/assign_user/<string:account_id>', methods=['POST'])
+@login_required
+def assign_user(account_id):
+    
+    user_id = request.form.get('user_id')
+    loan_account = LoanAccount.query.get(account_id)
+    user = User.query.get(user_id)
+
+    if user.id == int(user_id) and user.role == "subordinate":
+        loan_account.assigned_to = int(user_id)
+        db.session.commit()
+
+    return redirect(url_for('dashboard'))
+
 
 @app.route('/logout')
 @login_required

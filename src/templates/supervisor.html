@@ -35,13 +35,29 @@
         <thead>
             <tr>
                 <th scope="col">Loan Account Number</th>
+                <th scope="col">Subordinate Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
             {% for loan in unassigned %}
-            <tr>
-                <td>{{ loan.account_number }}</td>
-            </tr>
+            <form method="POST" action="{{ url_for('assign_user', account_id=loan.id) }}">
+                <tr>
+                    <td>{{ loan.account_number }}</td>
+                    <td>
+                        <select name="user_id">
+                            {% for user in users_to_assign %}
+                                <option value="{{user.id}}">{{user.username}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>{{ loan.status }}</td>
+                    <td>
+                        <button type="submit">Assign</button>
+                    </td>
+                </tr>
+            </form>
             {% endfor %}
         </tbody>
     </table>
