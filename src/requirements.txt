@@ -15,3 +15,4 @@ waitress
 Werkzeug
 zipp
 pytz
+geocoder
