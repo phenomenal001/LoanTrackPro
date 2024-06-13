@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
     <title>Subordinate Dashboard</title>
 </head>
 <body>
     <h1>Subordinate Dashboard</h1>
     <h2>Assigned Loan Accounts</h2>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Loan Account Number</th>
@@ -22,15 +25,31 @@
                 <td>{{ loan.account_number }}</td>
                 <td>
                     <form method="POST" action="{{ url_for('mark_complete', loan_id=loan.id) }}">
-                        <input type="hidden" name="latitude" value="YOUR_LATITUDE">
-                        <input type="hidden" name="longitude" value="YOUR_LONGITUDE">
+                        <input type="hidden" name="latitude" value="{{loan.latitude}}">
+                        <input type="hidden" name="longitude" value="{{loan.longitude}}">
+                        {% if loan.status == 'Completed'%}
+                            <input type="button" name="status" value="{{loan.status}}">
+                        {%  else %}
                         <button type="submit">Mark as Completed</button>
+                        {% endif%}
                     </form>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+        {% if errors %}
+        <div class="alert alert-danger alert-dismissible fade show"
+             role="alert">
+            <ul>
+                {% for msg in errors %}
+                <li>{{ msg }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    {% endwith %}
     <a href="{{ url_for('logout') }}">Logout</a>
 </body>
 </html>
