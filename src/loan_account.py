@@ -18,4 +18,4 @@ if __name__ == "__main__":
         db.create_all()  # Ensure the tables are created
         account_number = genval(16)
         # Create a Loan accounts
-        create_loan_account(account_number, 19.302932413567063, 72.84996176608338, "Not completed",14)
+        create_loan_account(account_number, 21.302932413567063, 74.84996176608338, "Not completed")

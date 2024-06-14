@@ -18,6 +18,8 @@
                 <th scope="col">Loan Account Number</th>
                 <th scope="col">Subordinate Name</th>
                 <th scope="col">Status</th>
+                <th scope="col">Latitude</th>
+                <th scope="col">longitude</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +28,8 @@
                 <td>{{ loan.account_number }}</td>
                 <td>{{ loan.username }}</td>
                 <td>{{ loan.status }}</td>
+                <td>{{ loan.latitude }}</td>
+                <td>{{ loan.longitude }}</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -66,7 +66,7 @@ def login():
 def dashboard():
     if current_user.role == 'supervisor':
         
-        assigned = LoanAccount.query.join(User).add_columns(LoanAccount.account_number, User.username, LoanAccount.status).filter(LoanAccount.assigned_to.isnot(None)).filter(LoanAccount.assigned_to ==  User.id).all()
+        assigned = LoanAccount.query.join(User).add_columns(LoanAccount.account_number, User.username, LoanAccount.status, LoanAccount.latitude, LoanAccount.longitude).filter(LoanAccount.assigned_to.isnot(None)).filter(LoanAccount.assigned_to ==  User.id).all()
         unassigned = LoanAccount.query.filter_by(assigned_to=None).all()
         users_to_assign = User.query.filter_by(role="subordinate").all()
 
